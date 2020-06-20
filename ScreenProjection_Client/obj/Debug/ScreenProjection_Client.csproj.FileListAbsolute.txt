@@ -1,0 +1,14 @@
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\bin\Debug\ScreenProjection_Client.exe.config
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\bin\Debug\ScreenProjection_Client.exe
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\bin\Debug\ScreenProjection_Client.pdb
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\bin\Debug\MetroFramework.Design.dll
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\bin\Debug\MetroFramework.dll
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\bin\Debug\MetroFramework.Fonts.dll
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\obj\Debug\ScreenProjection_Client.csprojAssemblyReference.cache
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\obj\Debug\ScreenProjection_Client.Form1.resources
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\obj\Debug\ScreenProjection_Client.Properties.Resources.resources
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\obj\Debug\ScreenProjection_Client.csproj.GenerateResource.cache
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\obj\Debug\ScreenProjection_Client.csproj.CoreCompileInputs.cache
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\obj\Debug\ScreenProjection_Client.csproj.CopyComplete
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\obj\Debug\ScreenProjection_Client.exe
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\obj\Debug\ScreenProjection_Client.pdb
