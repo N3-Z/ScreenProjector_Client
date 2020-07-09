@@ -9,8 +9,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Shell;
 
 namespace ScreenProjection_Client
 {
@@ -25,6 +27,8 @@ namespace ScreenProjection_Client
         String myip = "";
         String ipServer = "";
 
+        private Thread requestProcessThread;
+
         /*
          * nb: set ip requstScreenProjector and ip TcpClient using ipServer
          */
@@ -36,22 +40,40 @@ namespace ScreenProjection_Client
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            requestProcessThread = new Thread(requestProcess);
+            requestProcessThread.Start();
+            button1.Enabled = false;
+        }
+
+        private void requestProcess()
+        {
             //MessageBox.Show("Myip: " + getIPServer());
+            
             ipServer = getIPServer();
 
             if (requestScreenProjector())
             {
+                
                 server = new TcpClient();
                 while (!server.Connected)
                 {
                     try
                     {
-                        server.Connect(ipServer, portSendDesktop);
+                        //##
+                        server.Connect(myip, portSendDesktop);
                         timer1.Start();
                     }
                     catch (Exception)
-                    { }
+                    {
+                    }
                 }
+            }
+            else
+            {
+                button1.BeginInvoke(new MethodInvoker(() =>
+                {
+                    button1.Enabled = true;
+                }));
             }
         }
 
@@ -86,25 +108,27 @@ namespace ScreenProjection_Client
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             //String ipServer = getIPServer();
             //set IPEndPoint using ipServer
-            IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Parse(ipServer), portRequestConnect);
+            //##
+            IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Parse(myip), portRequestConnect);
 
             String msg = myip;
             byte[] data = Encoding.ASCII.GetBytes(msg);
             try
             {
                 socket.Connect(iPEndPoint);
+                socket.SendTimeout = 500;
                 socket.Send(data);
 
                 byte[] messageRecv = new byte[1024];
                 int byteRecv = socket.Receive(messageRecv);
                 string recvMsg = Encoding.ASCII.GetString(messageRecv, 0, byteRecv);
 
-                //MessageBox.Show(recvMsg);
+                MessageBox.Show(recvMsg);
                 socket.Close();
                 if (recvMsg.Equals("yes")) return true;
                 else return false;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 socket.Close();
                 return false;

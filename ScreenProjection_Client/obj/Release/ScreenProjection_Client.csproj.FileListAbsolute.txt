@@ -11,3 +11,4 @@ C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\obj\Re
 C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\obj\Release\ScreenProjection_Client.csproj.CopyComplete
 C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\obj\Release\ScreenProjection_Client.exe
 C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\obj\Release\ScreenProjection_Client.pdb
+C:\Users\zee\source\repos\ScreenProjection_Client\ScreenProjection_Client\obj\Release\ScreenProjection_Client.csprojAssemblyReference.cache
