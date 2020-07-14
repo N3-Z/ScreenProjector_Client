@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Net;
+using System.Net;   
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Shell;
 
 namespace ScreenProjection_Client
 {
@@ -28,6 +22,7 @@ namespace ScreenProjection_Client
         String ipServer = "";
 
         private Thread requestProcessThread;
+        private Thread sendDesktopThread;
 
         /*
          * nb: set ip requstScreenProjector and ip TcpClient using ipServer
@@ -47,8 +42,6 @@ namespace ScreenProjection_Client
 
         private void requestProcess()
         {
-            //MessageBox.Show("Myip: " + getIPServer());
-            
             ipServer = getIPServer();
 
             if (requestScreenProjector())
@@ -61,7 +54,8 @@ namespace ScreenProjection_Client
                     {
                         //##
                         server.Connect(myip, portSendDesktop);
-                        timer1.Start();
+                        sendDesktopThread = new Thread(SendImage);
+                        sendDesktopThread.Start();
                     }
                     catch (Exception)
                     {
@@ -107,7 +101,7 @@ namespace ScreenProjection_Client
         {
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             //String ipServer = getIPServer();
-            //set IPEndPoint using ipServer
+            //Set IPEndPoint using ipServer
             //##
             IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Parse(myip), portRequestConnect);
 
@@ -123,7 +117,6 @@ namespace ScreenProjection_Client
                 int byteRecv = socket.Receive(messageRecv);
                 string recvMsg = Encoding.ASCII.GetString(messageRecv, 0, byteRecv);
 
-                MessageBox.Show(recvMsg);
                 socket.Close();
                 if (recvMsg.Equals("yes")) return true;
                 else return false;
@@ -134,7 +127,17 @@ namespace ScreenProjection_Client
                 return false;
             }
 
+        }        
+
+        private void SendImage()
+        {
+            while (server.Connected)
+            {
+                SendDesktopImage();
+            }
+            server = null;
         }
+
         private static Image GrabDesktop()
         {
             Rectangle bounds = Screen.PrimaryScreen.Bounds;
@@ -151,20 +154,21 @@ namespace ScreenProjection_Client
             {
                 mainStream = server.GetStream();
                 binformater.Serialize(mainStream, img);
-                Console.WriteLine("send");
             }
             catch (Exception)
             {
-                Console.WriteLine("serialize");
-                timer1.Stop();
+                mainStream.Close();
                 mainStream = null;
                 server.Close();
+                button1.BeginInvoke(new MethodInvoker(() =>
+                {
+                    button1.Enabled = true;
+                }));
             }
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            SendDesktopImage();
         }
     }
 }
