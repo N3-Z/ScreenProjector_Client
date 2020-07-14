@@ -53,7 +53,7 @@ namespace ScreenProjection_Client
                     try
                     {
                         //##
-                        server.Connect(myip, portSendDesktop);
+                        server.Connect(ipServer, portSendDesktop);
                         sendDesktopThread = new Thread(SendImage);
                         sendDesktopThread.Start();
                     }
@@ -103,7 +103,7 @@ namespace ScreenProjection_Client
             //String ipServer = getIPServer();
             //Set IPEndPoint using ipServer
             //##
-            IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Parse(myip), portRequestConnect);
+            IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Parse(ipServer), portRequestConnect);
 
             String msg = myip;
             byte[] data = Encoding.ASCII.GetBytes(msg);
